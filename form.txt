@@ -1,0 +1,60 @@
+//use of body() fucniton
+// [
+//     body("birthdate", "Must be a valid date.")  //SHOWS THAT BITRTHDATE IS OPTIONAL  BUT ALSO ISO FORMAT
+//       .optional({ values: "falsy" }) //falsy means not NO undefined null //validation 1 
+//       .isISO8601() // Enforce a YYYY-MM-DD format. //validation 2
+//   ];
+body("name").notEmpty().withMessage("you are fool");
+some imp validaiton fucntions are  
+       Function	Purpose
+.notEmpty()	Ensures field is not empty
+.trim()	Removes extra spaces
+.isAlpha()	Only letters allowed
+.isAlphanumeric()	Only letters & numbers allowed
+.isNumeric()	Only numbers allowed
+.isInt({ min, max })	Ensures integer with range
+.isFloat({ min, max })	Allows decimal numbers
+.isEmail()	Checks valid email format
+.isStrongPassword()	Ensures a secure password
+.isBoolean()	Ensures true/false value
+.isDate()	Checks valid date format
+.isURL()	Ensures valid URL format
+.matches(regex)	Custom regex validation
+.custom(fn)	Custom logic for validation
+body("fieldName") // Selects the field to validate
+  .validationMethod1() // Applies first validation rule
+  .withMessage("Error message if it fails") 
+  .validationMethod2() // Applies second validation rule
+  .withMessage("Error message if it fails")
+  .validationMethodN(); // Additional validation rules if needed
+ its like try catch method 
+  we can chain many validations
+  example is
+  [
+  body("name")  //name field
+    .trim() //remove spaces
+    .notEmpty() //its not empty
+    .withMessage("Name can not be empty.")  //if .notEmpty fails this is shown
+    .isAlpha() //only alphabet letters
+    .withMessage("Name must only contain alphabet letters."),   //if not alphabetletters this message
+];
+XSS attack prevention  
+example.ejs
+<div>
+  About Me: <%- description %>!
+</div>
+
+// The client then inputs the following as their page's About Me:
+<script>alert("Hacked!");</script> //user input 
+<div>
+  About Me: <script>alert("Hacked!");</script>! //output
+</div>
+but to prevent this we use 
+<%=> this converts special characters like < / & into other things ex < into &lt 
+<div>
+  About Me: <%= username %>!
+</div>
+
+// The escaped output is now rendered harmless:
+// About Me: &lt;script&gt;alert(&quot;Hacked!&quot;);&lt;/script&gt;!
+
